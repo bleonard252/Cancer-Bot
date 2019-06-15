@@ -315,6 +315,7 @@ bot.on("disconnected", function () {
 });
 
 function checkMessageForCommand(msg, isEdit) {
+	global["LAST"] = msg; //for debugging. use LAST in place of message/msg
 	if (msg.channel.id == 589270215066648576 && msg.author.id != bot.user.id
 		&& !msg.content.startsWith(Config.commandPrefix)) {
 		var src = require('tosource'); //shorthand: src(...) = toSource(...)
