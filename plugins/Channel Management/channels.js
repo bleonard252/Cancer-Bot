@@ -132,8 +132,9 @@ exports.topic = {
     }
 }
 function isOwner(msg) {
-    return ((msg.channel.permissionsFor(msg.author).has("MANAGE_MESSAGES")
+    return (((msg.channel.permissionsFor(msg.author).has("MANAGE_MESSAGES")
         || msg.channel.permissionsFor(msg.author).has("PRIORITY_SPEAKER")
         || msg.channel.permissionsFor(msg.author).has("ADMINISTRATOR"))
-        && msg.channel.name.startsWith("tmp"))
+        && msg.channel.name.startsWith("tmp")) || msg.channel.guild.permissionsFor(msg.author).has("MANAGE_CHANNELS") 
+	|| msg.channel.permissionsFor(msg.author).has("ADMINISTRATOR"))
 }
