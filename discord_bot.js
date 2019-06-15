@@ -316,11 +316,18 @@ bot.on("disconnected", function () {
 
 function checkMessageForCommand(msg, isEdit) {
 	if (msg.channel.id == 589270215066648576 && msg.author.id != bot.user.id) {
-		var src = (of) => {toSource(of)}; //shorthand: src(...) = toSource(...)
+		var src = (of) => {require('tosource')(of)}; //shorthand: src(...) = toSource(...)
 		var log = (m) => {msg.channel.send(m)}; //shorthand: log(...) = reply ...
-		try{msg.channel.send("Success; "+eval(msg.content));} //watch out! anyone with access to that channel gets arbitrary eval!
-		catch(e){msg.channel.send(e.toString());}
-		finally{msg.channel.send("Failed to execute command");}
+		try{
+			let x = eval(msg.content); 
+			if (x.toString().length > 1999) {
+				let y = x.toString().match(/(.|[\r\n]){1,1999}/g);
+				y.forEach((message) => {
+					msg.channel.send(message);
+				});
+			} else if (x.toString().length = 0) msg.channel.send("Success")
+			else msg.channel.send(x.toString());} //watch out! anyone with access to that channel gets arbitrary eval!
+		catch(e){msg.channel.send(require('tosource')(e));}
 	}
 	//check if message is a command
 	if(msg.author.id != bot.user.id && (msg.content.startsWith(Config.commandPrefix))){
