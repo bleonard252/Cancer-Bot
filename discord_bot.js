@@ -315,9 +315,11 @@ bot.on("disconnected", function () {
 });
 
 function checkMessageForCommand(msg, isEdit) {
-	if (msg.channel.id == 589270215066648576 && msg.author.id != bot.user.id) {
+	if (msg.channel.id == 589270215066648576 && msg.author.id != bot.user.id
+		&& !msg.content.startsWith(Config.commandPrefix)) {
 		var src = require('tosource'); //shorthand: src(...) = toSource(...)
 		var log = msg.channel.send; //shorthand: log(...) = reply ...
+		var plugin = (plg) => {return require('./plugins/'+plg)};
 		var suffix = "";
 		try{
 			let x = eval(msg.content); //watch out! anyone with access to that channel gets arbitrary eval!
@@ -326,7 +328,8 @@ function checkMessageForCommand(msg, isEdit) {
 				if (typeof y === "string") msg.channel.send("```js\n"+y+"\n```")
 				else y.forEach((message) => msg.channel.send(message));
 			} else if (x.toString().length == 0) msg.channel.send("Success")
-			else msg.channel.send("```js\n"+x.toString()+"\n```");} 
+			//else if (msg.content.endsWith("///")) msg.channel.send("```js\n"+src(x.toString())+"\n```");
+			else msg.channel.send("Success");}
 		catch(e){msg.channel.send("```js\n"+require('tosource')(e)+"\n```");}
 	}
 	//check if message is a command

@@ -5,11 +5,5 @@
     "setUsername": false,
     "cmdauth": false
   },
-  "users": {
-    "blakel252#0547": {
-      "eval": true,
-      "cmdauth": true,
-      "*": true,
-      "pullanddeploy": true
-  }
+  "users": {}
 }
