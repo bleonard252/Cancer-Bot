@@ -3,7 +3,8 @@ exports.commands = [
 	"myid",
 	//"perm",
 	//"votekick",
-	"kick"
+	"kick",
+	"clear"
 ]
 
 var votekicks = {};
@@ -210,4 +211,21 @@ exports.unban = {
 			bot.send("couldn't uniquely resolve " + usertxt);
 		}
 	}
+}
+exports.clear = {
+	description: "clears the current channel.",
+	process: function(bot,msg,suffix){
+		if (isOwner(msg)) msg.channel.fetchMessages().then((messages) => {
+			msg.channel.bulkDelete(messages, true);
+			msg.channel.bulkDelete(messages, false);
+		});
+	}
+}
+
+function isOwner(msg) {
+    return (((msg.channel.permissionsFor(msg.author).has("MANAGE_MESSAGES")
+        || msg.channel.permissionsFor(msg.author).has("PRIORITY_SPEAKER")
+        || msg.channel.permissionsFor(msg.author).has("ADMINISTRATOR"))
+        && msg.channel.name.startsWith("tmp")) || msg.channel.guild.permissionsFor(msg.author).has("MANAGE_CHANNELS") 
+	|| msg.channel.permissionsFor(msg.author).has("ADMINISTRATOR"))
 }
