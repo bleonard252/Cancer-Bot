@@ -320,14 +320,13 @@ function checkMessageForCommand(msg, isEdit) {
 		var log = (m) => {msg.channel.send(m)}; //shorthand: log(...) = reply ...
 		try{
 			let x = eval(msg.content); 
-			if (x.toString().length > 1999) {
-				let y = x.toString().match(/(.|[\r\n]){1,1999}/g);
-				y.forEach((message) => {
-					msg.channel.send(message);
-				});
+			if (x.toString().length > 1900) {
+				let y = Discord.Util.splitMessage(x, {prepend: "```\n", append: "\n```"});
+				if (typeof y === "string") msg.channel.send(y)
+				else y.forEach((message) => msg.channel.send(message));
 			} else if (x.toString().length = 0) msg.channel.send("Success")
-			else msg.channel.send(x.toString());} //watch out! anyone with access to that channel gets arbitrary eval!
-		catch(e){msg.channel.send(require('tosource')(e));}
+			else msg.channel.send("```\n"+x.toString()+"\n```");} //watch out! anyone with access to that channel gets arbitrary eval!
+		catch(e){msg.channel.send("```\n"+require('tosource')(e)+"\n```");}
 	}
 	//check if message is a command
 	if(msg.author.id != bot.user.id && (msg.content.startsWith(Config.commandPrefix))){
