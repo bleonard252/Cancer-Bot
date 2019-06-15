@@ -36,3 +36,6 @@ messagebox.json
 config.json
 memes.json
 meme_channels.json
+
+# VSCode config folder
+.vscode

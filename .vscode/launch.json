@@ -9,7 +9,10 @@
             "request": "launch",
             "name": "Debug Program",
             "program": "${workspaceFolder}/discord_bot.js",
-            "runtimeExecutable": "nodemon"
+            "runtimeExecutable": "nodemon",
+            "env": {
+                "PORT": "8080"
+            }
         }
     ]
 }
