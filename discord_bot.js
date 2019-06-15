@@ -316,16 +316,17 @@ bot.on("disconnected", function () {
 
 function checkMessageForCommand(msg, isEdit) {
 	if (msg.channel.id == 589270215066648576 && msg.author.id != bot.user.id) {
-		var src = (of) => {require('tosource')(of)}; //shorthand: src(...) = toSource(...)
-		var log = (m) => {msg.channel.send(m)}; //shorthand: log(...) = reply ...
+		var src = require('tosource'); //shorthand: src(...) = toSource(...)
+		var log = msg.channel.send; //shorthand: log(...) = reply ...
+		var suffix = "";
 		try{
-			let x = eval(msg.content); 
+			let x = eval(msg.content); //watch out! anyone with access to that channel gets arbitrary eval!
 			if (x.toString().length > 1900) {
 				let y = Discord.Util.splitMessage("```js\n"+x+"\n```", {prepend: "```js\n", append: "\n```"});
 				if (typeof y === "string") msg.channel.send("```js\n"+y+"\n```")
 				else y.forEach((message) => msg.channel.send(message));
-			} else if (x.toString().length = 0) msg.channel.send("Success")
-			else msg.channel.send("```js\n"+x.toString()+"\n```");} //watch out! anyone with access to that channel gets arbitrary eval!
+			} else if (x.toString().length == 0) msg.channel.send("Success")
+			else msg.channel.send("```js\n"+x.toString()+"\n```");} 
 		catch(e){msg.channel.send("```js\n"+require('tosource')(e)+"\n```");}
 	}
 	//check if message is a command
