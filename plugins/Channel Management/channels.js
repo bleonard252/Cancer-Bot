@@ -17,9 +17,9 @@ exports.create = {
     process: function (bot, msg, suffix) {
         let xrandr = crypto.randomBytes(3).toString('hex');
         msg.channel.guild.createChannel("tmp" + xrandr, "text").then(function (channel) {
-            channel.overwritePermissions(msg.channel.guild.defaultRole, { "VIEW_CHANNEL": false, "READ_MESSAGES": false });
             channel.overwritePermissions(msg.author, { "SEND_TTS_MESSAGES": true, "MANAGE_MESSAGES": true, "VIEW_CHANNEL": true, "READ_MESSAGES": true });
             channel.overwritePermissions(bot.user, { "SEND_TTS_MESSAGES": false, "MANAGE_MESSAGES": true, "VIEW_CHANNEL": true, "READ_MESSAGES": true });
+	    channel.overwritePermissions(msg.channel.guild.defaultRole, { "VIEW_CHANNEL": false, "READ_MESSAGES": false });
             msg.channel.send("created " + channel);
             channel.setTopic(suffix);
 	    if (msg.channel.guild.id == 602544926051270676) channel.edit({parent:602901288119697408});
