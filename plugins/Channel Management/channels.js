@@ -22,7 +22,7 @@ exports.create = {
 	    channel.overwritePermissions(msg.channel.guild.defaultRole, { "VIEW_CHANNEL": false, "READ_MESSAGES": false });
             msg.channel.send("created " + channel);
             channel.setTopic(suffix);
-	    if (msg.channel.guild.id == 602544926051270676) channel.edit({parent:602901288119697408});
+	    if (msg.channel.guild.id == 602544926051270676) channel.edit({parent: "602901288119697408"});
         }).catch(function (error) {
             msg.channel.send("failed to create channel: " + error);
         });
