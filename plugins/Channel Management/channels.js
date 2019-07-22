@@ -19,10 +19,10 @@ exports.create = {
         msg.channel.guild.createChannel("tmp" + xrandr, "text").then(function (channel) {
 		channel.overwritePermissions(channel.guild.defaultRole, { "VIEW_CHANNEL": false, "READ_MESSAGES": false });
             	channel.overwritePermissions(msg.author, { "SEND_TTS_MESSAGES": true, "MANAGE_MESSAGES": true, "VIEW_CHANNEL": true, "READ_MESSAGES": true });
-		if (msg.channel.guild.id == 602544926051270676) channel.edit({parent: "602901288119697408"});
-		channel.overwritePermissions(bot.user, { "SEND_TTS_MESSAGES": false, "MANAGE_MESSAGES": true, "VIEW_CHANNEL": true, "READ_MESSAGES": true, "MANAGE_CHANNEL": true, "MANAGE_MESSAGES": true }); 
+		channel.overwritePermissions(bot.user, { "SEND_TTS_MESSAGES": false, "MANAGE_MESSAGES": true, "VIEW_CHANNEL": true, "READ_MESSAGES": true, });
 		msg.channel.send("created " + channel);
 		channel.setTopic(suffix);
+		if (msg.channel.guild.id == 602544926051270676) channel.edit({parent: "602901288119697408"});
         }).catch(function (error) {
             msg.channel.send("failed to create channel: " + error);
         });
